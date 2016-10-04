@@ -1,43 +1,48 @@
+(function() {
+	'use strict';
+
+	var output = document.getElementById( 'output' ),
+	closure = new myClosure2();
+
+	output.innerHTML = closure.foo();
+
+	window.setTimeout( function() {
+		output.innerHTML += '<br />' + closure.foo();
+	}, 500 );
+
+
+
+
+
+})();
+
 function nonClosure() {
-	"use strict";
+
+		var date = new Date();
+		return date.getMilliseconds();
+}
+
+function myClosure() {
 
 	var date = new Date();
 
-	return date.getMilliseconds();
+	return function() {
 
+		return date.getMilliseconds();
+
+	}
 }
 
-var output = document.getElementById( 'output' ),
-    nonC   = nonClosure();
+function myClosure2() {
 
-output.innerHTML = nonC + '<br />';
+	var date = new Date();
 
-window.setTimeout( function () {
-	"use strict";
+	var nestedFunc = function() {
 
-	output.innerHTML += '<br />' + nonClosure();
+		return date.getMilliseconds();
+	}
 
-}, 500 );
-
-function myClosure() {
-	"use strict";
-
-	var date2 = new Date();
-
-	return function () {
-		return date2.getMilliseconds();
+	return {
+		foo: nestedFunc
 	};
-
 }
-
-var closure = myClosure();
-var output2 = document.getElementById( 'output2' );
-
-output2.innerHTML = closure();
-
-window.setTimeout( function () {
-	"use strict";
-
-	output2.innerHTML += '<br />' + closure();
-
-}, 500 );
